@@ -8,7 +8,7 @@
     },
     "background": {
         "scripts": ["js/backgroundPage.js"],
-        "persistent": false
+        "persistent": true
     },
     "content_scripts": [
       {
@@ -22,5 +22,5 @@
         "16": "icon-16.png",
         "32": "icon-32.png"
     },
-    "permissions": ["tabs", "activeTab", "notifications", "http://*/", "https://*/"]
+    "permissions": ["tabs", "activeTab", "notifications", "*://geoguessr.com/*", "*://www.geoguessr.com/*"]
 }

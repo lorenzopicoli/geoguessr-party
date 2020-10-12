@@ -4,6 +4,7 @@ export default interface Message {
     // TODO: change this to challengeId. We should create a helper function that
     // takes a url and extracts the challengeId out of it
     challengeLink: string
+    playerId: string
   }
   isPartyModeActivated?: {
     challengeId: string
