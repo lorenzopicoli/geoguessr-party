@@ -9,4 +9,10 @@ browser.runtime.onMessage.addListener(async (message: Message) => {
     console.log(await axios.default.get('https://google.com'))
     console.log('b')
   }
+  if (message.isPartyModeActivated) {
+    console.log('a')
+    console.log(await axios.default.get('https://google.com'))
+    console.log('b')
+    return true
+  }
 })
