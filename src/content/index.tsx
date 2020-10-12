@@ -3,18 +3,20 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import { browser } from 'webextension-polyfill-ts'
-// import '../scss/app.scss'
+import Message from '@src/interfaces/Message'
 
-const PartyModeToggle = (props: {
-  onClick: () => Promise<void>
-}): JSX.Element => (
+interface PartyModeToggleProps {
+  onClick: (isChecked: boolean) => void
+}
+
+const PartyModeToggle = ({ onClick }: PartyModeToggleProps): JSX.Element => (
   <div>
     <label className="checkbox">
       <input
         type="checkbox"
         className="checkbox__input"
         name="show-game-settings"
-        onClick={props.onClick}
+        onChange={event => onClick(event.target.checked)}
       />
       <span className="checkbox__mark checkbox__mark--dark"></span>
       <span className="game-settings__checkbox-main-label">Party mode</span>
@@ -31,12 +33,22 @@ const ContainerStyled = styled.div`
   margin-top: 20px;
 `
 
-const Container = (props: { challengeLink: string }): JSX.Element => (
+interface PartyModeContainerProps {
+  challengeLink: string
+}
+
+const Container = ({ challengeLink }: PartyModeContainerProps): JSX.Element => (
   <ContainerStyled>
     <PartyModeToggle
-      onClick={(): Promise<void> =>
-        browser.runtime.sendMessage({ partyLink: props.challengeLink })
-      }
+      onClick={(isChecked: boolean) => {
+        const message: Message = {
+          togglePartyMode: {
+            isChecked,
+            challengeLink,
+          },
+        }
+        browser.runtime.sendMessage(message)
+      }}
     />
   </ContainerStyled>
 )

@@ -1,16 +1,12 @@
 import { browser } from 'webextension-polyfill-ts'
+import Message from '@src/interfaces/Message'
+import * as axios from 'axios'
 
 // Listen for messages sent from other parts of the extension
-browser.runtime.onMessage.addListener(
-  (request: { popupMounted: boolean; partyLink: string }) => {
-    // Log statement if request.popupMounted is true
-    // NOTE: this request is sent in `popup/component.tsx`
-    if (request.partyLink) {
-      console.log('bó começar a festa')
-    }
-
-    if (request.popupMounted) {
-      console.log('backgroundPage notified that Popup.tsx has mounted.')
-    }
-  },
-)
+browser.runtime.onMessage.addListener(async (message: Message) => {
+  if (message.togglePartyMode) {
+    console.log('a')
+    console.log(await axios.default.get('https://google.com'))
+    console.log('b')
+  }
+})
