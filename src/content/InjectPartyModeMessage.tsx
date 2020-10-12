@@ -8,8 +8,7 @@ import PartyModeMessage from './PartyModeMessage'
 const onDocumentReady = async () => {
   const pathName = window.location.pathname
   const joinChallengeButton = $('button[data-qa="join-challenge-button"]')
-  console.log('pathName', pathName.startsWith('/challenge/'))
-  console.log('joinChallengeButton', joinChallengeButton)
+
   // If it isn't the start challenge screen OR we couldn't find the "Start game" button, do nothing
   if (!pathName.startsWith('/challenge/') || joinChallengeButton.length === 0) {
     return
