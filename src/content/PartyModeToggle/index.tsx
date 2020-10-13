@@ -13,19 +13,18 @@ const ContainerStyled = styled.div`
 `
 
 interface PartyModeContainerProps {
-  challengeLink: string
+  challengeId: string
 }
 
 export default function Container({
-  challengeLink,
+  challengeId,
 }: PartyModeContainerProps): JSX.Element {
   const handleClick = async (isChecked: boolean) => {
-    // TODO: We don't want to call this every time the toggle is clicked
     const me = await fetchMe()
     const message: Message = {
       togglePartyMode: {
         isChecked,
-        challengeLink,
+        challengeId,
         playerId: me.user.id,
       },
     }

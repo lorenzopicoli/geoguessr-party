@@ -1,3 +1,4 @@
+import { getChallengeIdFromUrl } from '@src/utils'
 import $ from 'jquery'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
@@ -18,9 +19,14 @@ const injectToggle: MutationCallback = (_mutationList, observer): void => {
     `
 
   startChallengeButton.before(root)
+  const challengeId = getChallengeIdFromUrl(String(challengeLink))
 
+  if (!challengeId) {
+    console.error("Couldn't get challengeId from link")
+    return
+  }
   ReactDOM.render(
-    <PartyModeToggle challengeLink={challengeLink.toString()} />,
+    <PartyModeToggle challengeId={challengeId} />,
     document.getElementById('gparty-root'),
   )
 }

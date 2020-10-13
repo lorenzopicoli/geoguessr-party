@@ -4,9 +4,11 @@ import { browser } from 'webextension-polyfill-ts'
 import * as ReactDOM from 'react-dom'
 import * as React from 'react'
 import PartyModeMessage from './PartyModeMessage'
+import { getChallengeIdFromUrl } from '@src/utils'
 
 const onDocumentReady = async () => {
   const pathName = window.location.pathname
+  const url = window.location.href
   const joinChallengeButton = $('button[data-qa="join-challenge-button"]')
 
   // If it isn't the start challenge screen OR we couldn't find the "Start game" button, do nothing
@@ -14,7 +16,12 @@ const onDocumentReady = async () => {
     return
   }
 
-  const challengeId = pathName.replace('/challenge/', '')
+  const challengeId = getChallengeIdFromUrl(url)
+
+  if (!challengeId) {
+    return
+  }
+
   const message: Message = {
     isPartyModeActivated: {
       challengeId,
