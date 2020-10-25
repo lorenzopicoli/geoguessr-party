@@ -9,5 +9,12 @@ const ContainerStyled = styled.div`
 `
 
 export default function Container(): JSX.Element {
-  return <ContainerStyled>TODO: @FernandoTeodoro</ContainerStyled>
+  return (
+    <ContainerStyled>
+      <div className="challenge-page__settings" style={{ marginTop: 0 }}>
+        Party mode is activated for this game! All rounds will be automatically
+        synced
+      </div>
+    </ContainerStyled>
+  )
 }

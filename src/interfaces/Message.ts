@@ -8,4 +8,5 @@ export default interface Message {
     challengeId: string
   }
   enableNextRound?: true
+  changedReady?: boolean
 }

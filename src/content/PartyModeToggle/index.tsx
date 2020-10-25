@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { browser } from 'webextension-polyfill-ts'
 import Message from '@src/interfaces/Message'
 import * as React from 'react'
-import PartyModeToggle from './PartyModeToggle'
-import { fetchMe } from '@src/api'
+import * as GeoguessrApi from '@src/api/Geoguessr'
+import Toggle from '@src/components/Toggle'
 
 const ContainerStyled = styled.div`
   width: 100%;
@@ -19,8 +19,8 @@ interface PartyModeContainerProps {
 export default function Container({
   challengeId,
 }: PartyModeContainerProps): JSX.Element {
-  const handleClick = async (isChecked: boolean) => {
-    const me = await fetchMe()
+  const onClick = async (isChecked: boolean) => {
+    const me = await GeoguessrApi.fetchMe()
     const message: Message = {
       togglePartyMode: {
         isChecked,
@@ -32,7 +32,12 @@ export default function Container({
   }
   return (
     <ContainerStyled>
-      <PartyModeToggle onClick={handleClick} />
+      <Toggle
+        onClick={onClick}
+        mainLabel="Party mode"
+        subLabel="All rounds will be automatically synced for every user in this
+          challenge"
+      />
     </ContainerStyled>
   )
 }

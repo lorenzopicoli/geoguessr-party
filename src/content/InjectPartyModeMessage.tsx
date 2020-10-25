@@ -27,11 +27,14 @@ const onDocumentReady = async () => {
       challengeId,
     },
   }
-  const isPartyModeActivated = await browser.runtime.sendMessage(message)
-
-  // If party mode is not activated, do nothing
-  if (!isPartyModeActivated) {
-    return
+  try {
+    const isPartyModeActivated = await browser.runtime.sendMessage(message)
+    // If party mode is not activated, do nothing
+    if (!isPartyModeActivated) {
+      return
+    }
+  } catch (e) {
+    console.log('ahhh', e)
   }
 
   const root = `

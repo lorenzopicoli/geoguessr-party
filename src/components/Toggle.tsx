@@ -1,12 +1,16 @@
 import * as React from 'react'
 
-interface PartyModeToggleProps {
+interface ToggleProps {
   onClick: (isChecked: boolean) => void
+  mainLabel: string
+  subLabel?: string
 }
 
-export default function PartyModeToggle({
+export default function Toggle({
   onClick,
-}: PartyModeToggleProps): JSX.Element {
+  mainLabel,
+  subLabel,
+}: ToggleProps): JSX.Element {
   return (
     <div>
       <label className="checkbox">
@@ -17,12 +21,15 @@ export default function PartyModeToggle({
           onChange={event => onClick(event.target.checked)}
         />
         <span className="checkbox__mark checkbox__mark--dark"></span>
-        <span className="game-settings__checkbox-main-label">Party mode</span>
-        <br />
-        <span className="game-settings__checkbox-sub-label">
-          All rounds will be automatically synced for every user in this
-          challenge
-        </span>
+        <span className="game-settings__checkbox-main-label">{mainLabel}</span>
+        {subLabel && (
+          <>
+            <br />
+            <span className="game-settings__checkbox-sub-label">
+              {subLabel}
+            </span>
+          </>
+        )}
       </label>
     </div>
   )

@@ -4,7 +4,8 @@ import Player from '@src/interfaces/Player'
 const baseUrl = 'https://www.geoguessr.com/api/v3'
 
 export const fetchMe = async (): Promise<Player> => {
-  return fetch(`${baseUrl}/profiles/`).then(r => r.json())
+  const response = await fetch(`${baseUrl}/profiles/`)
+  return response.json()
 }
 
 // The "game" returned here will be missing some fields. Make sure to take the `token`
@@ -12,9 +13,11 @@ export const fetchMe = async (): Promise<Player> => {
 export const fetchChallengeGame = async (
   challengeId: string,
 ): Promise<Game> => {
-  return fetch(`${baseUrl}/challenges/${challengeId}/game`).then(r => r.json())
+  const response = await fetch(`${baseUrl}/challenges/${challengeId}/game`)
+  return response.json()
 }
 
 export const fetchGame = async (gameId: string): Promise<Game> => {
-  return fetch(`${baseUrl}/games/${gameId}`).then(r => r.json())
+  const response = await fetch(`${baseUrl}/games/${gameId}`)
+  return response.json()
 }

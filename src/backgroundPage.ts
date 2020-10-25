@@ -1,38 +1,32 @@
 import { browser } from 'webextension-polyfill-ts'
 import Message from '@src/interfaces/Message'
-import { getChallengeIdFromUrl, getGameIdFromUrl } from './utils'
+import { getChallengeIdFromUrl, getGameIdFromUrl, isNil } from './utils'
+import * as Backend from './api/Backend'
 
 // Listen for messages sent from other parts of the extension
 browser.runtime.onMessage.addListener(async (message: Message) => {
-  if (message.togglePartyMode) {
-    console.log('Challenge Id: ', message.togglePartyMode.challengeId)
-    console.log('Is checked: ', message.togglePartyMode.isChecked)
-    console.log('Player ID: ', message.togglePartyMode.playerId)
+  console.log('Background page message', message)
+  if (!isNil(message.togglePartyMode)) {
+    // TODO: handle errors
+    const { challengeId } = message.togglePartyMode
+    message.togglePartyMode.isChecked
+      ? await Backend.createChallenge(challengeId)
+      : await Backend.deleteChallenge(challengeId)
   }
-  if (message.isPartyModeActivated) {
-    console.log('a')
-    console.log('b')
-    return true
+  if (!isNil(message.isPartyModeActivated)) {
+    // TODO: Handle response
+    try {
+      await Backend.getChallenge(message.isPartyModeActivated.challengeId)
+      return true
+    } catch (e) {
+      return false
+    }
+  }
+  if (!isNil(message.changedReady)) {
+    console.log('user ready state changed', message.changedReady)
   }
 })
 
-const test = () =>
-  setTimeout(async () => {
-    try {
-      const message: Message = {
-        enableNextRound: true,
-      }
-      const tabs = await browser.tabs.query({
-        active: true,
-        currentWindow: true,
-      })
-      if (tabs[0].id) {
-        await browser.tabs.sendMessage(tabs[0].id, message)
-      }
-    } catch (e) {
-      console.log(e)
-    }
-  }, 3000)
 browser.webRequest.onCompleted.addListener(
   details => {
     const { method, url } = details
@@ -47,7 +41,6 @@ browser.webRequest.onCompleted.addListener(
     } else if (method === 'POST' && url.indexOf('api/v3/games/') > -1) {
       const gameId = getGameIdFromUrl(url)
       console.log('Guessed for game with Id', gameId)
-      test()
     }
   },
   { urls: ['https://www.geoguessr.com/api/*'] },
