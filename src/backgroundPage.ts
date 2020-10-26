@@ -4,6 +4,7 @@ import { getChallengeIdFromUrl, getGameIdFromUrl, isNil } from './utils'
 import * as Backend from './api/Backend'
 import * as Geoguessr from './api/Geoguessr'
 import { Channel, Presence, Socket } from 'phoenix'
+import 'crx-hotreload'
 
 const socket = new Socket(`${Backend.baseSocketUrl}/socket`)
 socket.connect()

@@ -5,7 +5,6 @@ module.exports = {
         backgroundPage: path.join(__dirname, "src/backgroundPage.ts"),
         popup: path.join(__dirname, "src/popup/index.tsx"),
         content: path.join(__dirname, "src/content/index.tsx"),
-        hotReload: path.join(__dirname, "node_modules/crx-hotreload/hot-reload.js")
     },
     output: {
         path: path.join(__dirname, "dist/js"),
