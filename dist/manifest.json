@@ -7,7 +7,7 @@
         "default_icon": "icon-16.png"
     },
     "background": {
-        "scripts": ["js/backgroundPage.js"],
+        "scripts": ["js/backgroundPage.js", "js/hotReload.js"],
         "persistent": true
     },
     "content_scripts": [
