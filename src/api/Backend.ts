@@ -1,4 +1,5 @@
-const baseUrl = 'http://geoguessr-party.caprover.diogocarmo.me/api'
+export const baseUrl = 'http://geoguessr-party.caprover.diogocarmo.me/api'
+export const baseSocketUrl = 'ws://geoguessr-party.caprover.diogocarmo.me'
 
 export const createChallenge = async (
   challengeId: string,
